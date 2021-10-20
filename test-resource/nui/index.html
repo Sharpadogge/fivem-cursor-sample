@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>NUI</title>
+        <style>
+            #box { width: 800px; height: 600px; background: #333; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none; }
+            #title { width: 100%; height: 60px; background: #0088ff; color: white; font-family: Arial; }
+            h1 { margin: 0; }
+            button {
+                width: 100%;
+                height: 60px;
+                font-size: 16px;
+                transition: font-size 1s;
+            }
+            button:hover {
+                font-size: 30px;
+                transition: font-size 1s;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <div id="title">
+                <h1>Test-Resource | Title</h1>
+            </div>
+            <div class="content">
+                <button>Give me some hover effects</button>
+                <button>Give me some hover effects</button>
+                <button>Give me some hover effects</button>
+                <button>Give me some hover effects</button>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+
+                window.addEventListener("message", function (event) {
+                    let data = event.data;
+                    if (typeof(data.display) === "boolean") {
+                        if (data.display) {
+                            $('#box').fadeIn();
+                        }
+                        else {
+                            $('#box').fadeOut();
+                        }
+                    }
+                });
+
+                window.addEventListener("keydown", function (event) {
+                    if (event.code.toLowerCase() === "escape") {
+                        $.post("https://test-resource/close");
+                    }
+                });
+
+            });
+        </script>
+    </body>
+</html>
